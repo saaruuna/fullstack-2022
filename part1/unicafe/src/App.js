@@ -26,6 +26,14 @@ const All = ({good, neutral, bad}) => {
 
 const Average = ({good, neutral, bad}) => {
   const all = good + neutral + bad
+  if (all === 0) {
+    return (
+      <div>
+        <p> average 0 </p>
+      </div>
+    )
+  }
+
   return (
     <div>
       <p> average {(good - bad)/all} </p>
@@ -35,11 +43,31 @@ const Average = ({good, neutral, bad}) => {
 
 const PositivePercentage = ({good, neutral, bad}) => {
   const all = good + neutral + bad
+  if (all === 0) {
+    return (
+      <div>
+        <p> positive 0 % </p>
+      </div>
+    )
+  }
   const positivePercentage = good / all * 100
   return (
     <div>
       <p> positive {positivePercentage} %</p>
     </div>
+  )
+}
+
+const Statistics = ({good, neutral, bad}) => {
+  return (
+    <>
+    <Statistic text='good' count={good} />
+      <Statistic text='neutral' count={neutral} />
+      <Statistic text='bad' count={bad} />
+      <All good={good} neutral={neutral} bad={bad} /> 
+      <Average good={good} neutral={neutral} bad={bad} />
+      <PositivePercentage good={good} neutral={neutral} bad={bad} /> 
+    </>
   )
 }
 
@@ -61,12 +89,7 @@ const App = () => {
         bad
       </button>
       <Header text='statistics' />
-      <Statistic text='good' count={good} />
-      <Statistic text='neutral' count={neutral} />
-      <Statistic text='bad' count={bad} />
-      <All good={good} neutral={neutral} bad={bad} /> 
-      <Average good={good} neutral={neutral} bad={bad} />
-      <PositivePercentage good={good} neutral={neutral} bad={bad} /> 
+      <Statistics good={good} neutral={neutral} bad={bad} />
     </div>
   )
 }

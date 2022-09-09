@@ -2,9 +2,7 @@ import { useState } from 'react'
 
 const Header = ({text}) => {
   return (
-    <div>
       <h1> {text} </h1>
-    </div>
   )
 }
 
@@ -12,15 +10,16 @@ const Button = ({setFunction, text, category}) => {
   return (
     <button onClick={() => setFunction(category + 1)}>
         {text}
-      </button>
+    </button>
   )
 }
 
 const StatisticLine = ({text, value}) => {
   return (
-    <div>
-      <p> {text} {value}</p>
-    </div>
+    <tr>
+      <td> {text} </td>
+      <td> {value} </td>
+    </tr>
   )
 }
 
@@ -29,9 +28,7 @@ const Statistics = ({good, neutral, bad}) => {
 
   if (all === 0) {
     return (
-    <div>
         <p> No feedback given </p>
-      </div>
     )
   }
 
@@ -40,12 +37,14 @@ const Statistics = ({good, neutral, bad}) => {
 
   return (
     <>
+    <table>
       <StatisticLine text='good' value={good} />
       <StatisticLine text='neutral' value={neutral} />
       <StatisticLine text='bad' value={bad} />
       <StatisticLine text='all' value={all} /> 
       <StatisticLine text='average' value={average} /> 
       <StatisticLine text='positive' value={positive + ' %'} /> 
+    </table>
     </>
   )
 }

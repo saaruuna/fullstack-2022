@@ -1,5 +1,11 @@
 import { useState } from 'react'
 
+const Header = ({text}) => {
+  return (
+      <h1> {text} </h1>
+  )
+}
+
 const Button = ({handleFunction, text}) => {
   return (
     <button onClick={() => handleFunction()}>
@@ -29,6 +35,7 @@ const App = () => {
   ]
 
   const [selected, setSelected] = useState(0)
+  const [highestVote, setHighestVote] = useState(0)
   const [votes, setVotes] = useState({
     'If it hurts, do it more often.': 0,
     'Adding manpower to a late software project makes it later!': 0,
@@ -39,22 +46,27 @@ const App = () => {
     'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients.':0
   })
 
-  const selectedAnecdote = anecdotes[selected]
-
   const handleSelected = () => {
     setSelected(Math.floor(Math.random() * anecdotes.length))
   }
 
   const handleVotes = () => {
-    const newVotes = {...votes, [selectedAnecdote]: votes[selectedAnecdote] + 1}
+    const newVotes = {...votes, [anecdotes[selected]]: votes[anecdotes[selected]] + 1}
     setVotes(newVotes)
+
+    if (newVotes[anecdotes[selected]] > newVotes[anecdotes[highestVote]]) {
+      setHighestVote(selected)
+    }
   }
 
   return (
     <div>
-      <Anecdote text={selectedAnecdote} voteCount={votes[anecdotes[selected]]} />
+      <Header text='Anecdote of the day'/>
+      <Anecdote text={anecdotes[selected]} voteCount={votes[anecdotes[selected]]} />
       <Button handleFunction={handleVotes} text='vote' />
       <Button handleFunction={handleSelected} text='next anecdote' />
+      <Header text='Anecdote with most votes'/>
+      <Anecdote text={anecdotes[highestVote]} voteCount={votes[anecdotes[highestVote]]}/>
     </div>
   )
 }

@@ -29,6 +29,11 @@
       "id": 6,
       "name": "Barnice",
       "number": "456"
+    },
+    {
+      "id": 7,
+      "name": "Öptik",
+      "number": "999"
     }
   ]
 }

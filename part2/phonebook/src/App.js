@@ -1,5 +1,5 @@
 import { useState, useEffect} from 'react'
-import axios from 'axios'
+import contactService from './services/contacts'
 import Contacts from './components/Contacts'
 import NewContactForm from './components/NewContactForm'
 import SearchForm from './components/SearchForm'
@@ -9,8 +9,8 @@ const App = () => {
   const [searchName, setNewSearchName] = useState('')
 
   useEffect(() => {        
-    axios      
-    .get('http://localhost:3001/persons')      
+    contactService.
+    getAll()     
     .then(response => {                
       setPersons(response.data)      
     })  

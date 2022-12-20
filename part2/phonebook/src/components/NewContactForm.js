@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import contactService from '../services/contacts'
 
-const NewContactForm = ({persons, setPersons}) => {    
+const NewContactForm = ({persons, setPersons, setSuccessMessage}) => {    
     const [newName, setNewName] = useState('')
     const [newNumber, setNewNumber] = useState('')
 
@@ -22,6 +22,8 @@ const NewContactForm = ({persons, setPersons}) => {
             .then(response => {
               setPersons(persons.map(person => person.id === changedObject.id ? response.data : person))
             })
+            setSuccessMessage(`Updated ${nameObject.name}`)        
+            setTimeout(() => {setSuccessMessage(null)}, 5000)
           }
         } else {
           contactService
@@ -29,6 +31,8 @@ const NewContactForm = ({persons, setPersons}) => {
           .then(response => {      
             setPersons(persons.concat(response.data))    
           })
+          setSuccessMessage(`Added ${nameObject.name}`)        
+          setTimeout(() => {setSuccessMessage(null)}, 5000)
         }
     
         setNewName('')

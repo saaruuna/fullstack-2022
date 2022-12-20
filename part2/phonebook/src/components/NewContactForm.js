@@ -14,7 +14,15 @@ const NewContactForm = ({persons, setPersons}) => {
         }
     
         if (persons.map(person => person.name).includes(nameObject.name)) {
-          alert(`${newName} is already added to phonebook`)
+          if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
+            const updateId = persons.find(person => person.name.includes(nameObject.name)).id
+            const changedObject = {...nameObject, id: updateId}
+            contactService
+            .update(changedObject)
+            .then(response => {
+              setPersons(persons.map(person => person.id === changedObject.id ? response.data : person))
+            })
+          }
         } else {
           contactService
           .create(nameObject)   

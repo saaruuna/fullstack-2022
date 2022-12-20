@@ -9,6 +9,10 @@ const create = newObject => {
   return axios.post(baseUrl, newObject)
 }
 
+const update = changedObject => {
+  return axios.put(baseUrl + "/" + changedObject.id, changedObject)
+}
+
 const deleteContact = contactId => {
     return axios.delete(baseUrl + '/' + contactId)
 }
@@ -16,5 +20,6 @@ const deleteContact = contactId => {
 export default { 
   getAll: getAll, 
   create: create, 
+  update: update,
   deleteContact: deleteContact
 }

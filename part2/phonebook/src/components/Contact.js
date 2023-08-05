@@ -1,6 +1,6 @@
 import contactService from '../services/contacts'
 
-const Contact = ({ contact, persons, setPersons }) => {
+const Contact = ({ contact, persons, setPersons, setErrorMessage}) => {
     const deleteContact = (event) => {
       event.preventDefault()
       if (window.confirm("Delete " + contact.name + "?")) {
@@ -9,6 +9,11 @@ const Contact = ({ contact, persons, setPersons }) => {
         .deleteContact(contactId)
         .then(response => {   
           setPersons(persons.filter(person => person.id !== contactId))    
+        })
+        .catch(error => {
+          const name = persons.find(person => person.id === contactId).name
+          setErrorMessage(`Information of ${name} not found on server`)        
+          setTimeout(() => {setErrorMessage(null)}, 5000)
         })
       }
     }

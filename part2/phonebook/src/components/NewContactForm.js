@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import contactService from '../services/contacts'
 
-const NewContactForm = ({persons, setPersons, setSuccessMessage}) => {    
+const NewContactForm = ({persons, setPersons, setSuccessMessage, setErrorMessage}) => {    
     const [newName, setNewName] = useState('')
     const [newNumber, setNewNumber] = useState('')
 
@@ -21,18 +21,26 @@ const NewContactForm = ({persons, setPersons, setSuccessMessage}) => {
             .update(changedObject)
             .then(response => {
               setPersons(persons.map(person => person.id === changedObject.id ? response.data : person))
+              setSuccessMessage(`Updated ${nameObject.name}`)        
+              setTimeout(() => {setSuccessMessage(null)}, 5000)
             })
-            setSuccessMessage(`Updated ${nameObject.name}`)        
-            setTimeout(() => {setSuccessMessage(null)}, 5000)
+            .catch(error => {
+              setErrorMessage(`Information of ${nameObject.name} not found on server`)        
+              setTimeout(() => {setErrorMessage(null)}, 5000)
+            })
           }
         } else {
           contactService
           .create(nameObject)   
           .then(response => {      
             setPersons(persons.concat(response.data))    
+            setSuccessMessage(`Added ${nameObject.name}`)        
+            setTimeout(() => {setSuccessMessage(null)}, 5000)
           })
-          setSuccessMessage(`Added ${nameObject.name}`)        
-          setTimeout(() => {setSuccessMessage(null)}, 5000)
+          .catch(error => {
+            setErrorMessage(`Could not add ${nameObject.name}`)        
+            setTimeout(() => {setErrorMessage(null)}, 5000)
+          })
         }
     
         setNewName('')

@@ -1,6 +1,6 @@
 import Contact from './Contact'
 
-const Contacts = ({ persons, searchName, setPersons}) => {
+const Contacts = ({ persons, searchName, setPersons, setErrorMessage}) => {
     return (
         <div>
             <ul>
@@ -8,7 +8,7 @@ const Contacts = ({ persons, searchName, setPersons}) => {
                     person.name.toLowerCase()
                     .includes(searchName.toLowerCase()))
                     .map(contact =>          
-                    <Contact key={contact.id} contact={contact} persons={persons} setPersons={setPersons}/>
+                    <Contact key={contact.id} contact={contact} persons={persons} setPersons={setPersons} setErrorMessage={setErrorMessage}/>
                 )}  
             </ul>
         </div>

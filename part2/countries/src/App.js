@@ -6,6 +6,7 @@ import Countries from './components/Countries'
 const App = () => {
   const [countries, setCountries] = useState([])
   const [searchName, setNewSearchName] = useState('')
+  const [showCountry, setNewShowCountry] = useState(null)
 
   useEffect(() => {        
     countryService.getAll()     
@@ -16,8 +17,8 @@ const App = () => {
 
   return (
     <div>
-      <SearchForm searchName={searchName} setNewSearchName={setNewSearchName} />
-      <Countries countries={countries} searchName={searchName}/>
+      <SearchForm searchName={searchName} setNewSearchName={setNewSearchName} setNewShowCountry={setNewShowCountry}/>
+      <Countries countries={countries} searchName={searchName} showCountry={showCountry} setNewShowCountry={setNewShowCountry}/>
     </div>
   )
 }

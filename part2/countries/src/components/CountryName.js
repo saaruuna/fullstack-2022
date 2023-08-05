@@ -1,7 +1,10 @@
-const CountryName = ({name}) => {
+const CountryName = ({country, setNewShowCountry}) => {
     return (
       <li>
-        {name} 
+        {country.name.common} 
+        <button onClick={() => setNewShowCountry(country)}>          
+          show       
+        </button>      
       </li>
     )
 

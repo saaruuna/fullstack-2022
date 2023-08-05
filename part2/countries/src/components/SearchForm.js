@@ -1,7 +1,8 @@
-const SearchForm = ({searchName, setNewSearchName}) => {
+const SearchForm = ({searchName, setNewSearchName, setNewShowCountry}) => {
     const handleSearchNameChange = (event) => {    
         console.log(event.target.value)    
         setNewSearchName(event.target.value)
+        setNewShowCountry(null)
     }
 
     return (
